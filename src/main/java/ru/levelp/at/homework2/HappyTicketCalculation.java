@@ -1,20 +1,18 @@
 package ru.levelp.at.homework2;
 
-import java.util.Collections;
-
 public class HappyTicketCalculation {
 
-    public static Object getHappyTicket(String numberTicket) {
-        String isEmpty = "";
+    private static final String regexp = "^[0-9]\\d{5}";
+
+    @SuppressWarnings("checkstyle:LineLength")
+    public static boolean getHappyTicket(String numberTicket) {
         if (numberTicket == null) {
-            return isEmpty;
+            return false;
+        } else if (!numberTicket.matches(regexp)) {
+            return false;
+        } else {
+            char[] arrayTest = numberTicket.toCharArray();
+            return (arrayTest[0] + arrayTest[1] + arrayTest[2]) == (arrayTest[3] + arrayTest[4] + arrayTest[5]);
         }
-
-        char[] arrayTest = numberTicket.toCharArray();
-        boolean isLucky;
-
-        isLucky = (arrayTest[0] + arrayTest[1] + arrayTest[2]) == (arrayTest[3] + arrayTest[4] + arrayTest[5]);
-
-        return isLucky;
     }
 }

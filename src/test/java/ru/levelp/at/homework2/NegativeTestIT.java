@@ -8,9 +8,8 @@ public class NegativeTestIT {
 
     @ParameterizedTest
     @MethodSource("ru.levelp.at.homework2.NegativeDataProvider#dataTest")
-    public void sendEmptyTicket (String num, String actual) {
+    public void sendIncorrectTicket (String num, boolean actual) {
         Object actualOutput = HappyTicketCalculation.getHappyTicket(num);
         Assertions.assertThat(actualOutput).isEqualTo(actual);
-        System.out.println("123");
     }
 }
