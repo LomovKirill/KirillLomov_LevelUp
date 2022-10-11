@@ -1,7 +1,7 @@
 package ru.levelp.at.homework2;
 
-import org.junit.jupiter.params.provider.Arguments;
 import java.util.stream.Stream;
+import org.junit.jupiter.params.provider.Arguments;
 
 public class NegativeDataProvider {
     public static Stream<Arguments> dataTest() {

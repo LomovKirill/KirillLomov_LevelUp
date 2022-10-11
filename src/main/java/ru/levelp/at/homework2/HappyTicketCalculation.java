@@ -2,9 +2,8 @@ package ru.levelp.at.homework2;
 
 public class HappyTicketCalculation {
 
-    private static final String regexp = "^[0-9]\\d{5}";
+    private static final String regexp = "^[0-9]{6}";
 
-    @SuppressWarnings("checkstyle:LineLength")
     public static boolean getHappyTicket(String numberTicket) {
         if (numberTicket == null) {
             return false;
