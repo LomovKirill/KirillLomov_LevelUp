@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class LoginPage {
+public class LoginMail {
 
     private static final String MAIL_URL = "https://mail.ru/";
 
@@ -18,18 +18,18 @@ public class LoginPage {
     private final WebDriverWait wait;
 
     @FindBy(xpath = "//*[@class=\"ph-login svelte-1hiqrvn\"]")
-    private WebElement open;
+    private WebElement openLogin;
 
-    @FindBy(xpath = "//*[@placeholder=\"Имя аккаунта\"]")
-    private WebElement nameTextField;
+    @FindBy(name = "username")
+    private WebElement nameField;
 
-    @FindBy(xpath = "//*[@placeholder=\"Пароль\"]")
-    private WebElement passwordTextField;
+    @FindBy(name = "password")
+    private WebElement passwordField;
 
-    @FindBy(xpath = "//*[@class=\"submit-button-wrap\"]")
+    @FindBy(className = "submit-button-wrap")
     private WebElement clickButton;
 
-    public LoginPage(WebDriver driver) {
+    public LoginMail(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofMillis(1000));
         PageFactory.initElements(driver, this);
@@ -40,15 +40,15 @@ public class LoginPage {
     }
 
     public void openLogin() {
-        wait.until(ExpectedConditions.elementToBeClickable(open)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(openLogin)).click();
     }
 
-    public void nameTextField(String value) {
-        wait.until(ExpectedConditions.visibilityOf(nameTextField)).sendKeys(value);
+    public void nameField(String value) {
+        wait.until(ExpectedConditions.visibilityOf(nameField)).sendKeys(value);
     }
 
-    public void passwordTextField(String value) {
-        wait.until(ExpectedConditions.visibilityOf(passwordTextField)).sendKeys(value);
+    public void passwordField(String value) {
+        wait.until(ExpectedConditions.visibilityOf(passwordField)).sendKeys(value);
     }
 
     public void clickLogin() {
@@ -60,5 +60,4 @@ public class LoginPage {
         SleepUtils.sleep(1500);
         driver.switchTo().frame(iFrame);
     }
-
 }
