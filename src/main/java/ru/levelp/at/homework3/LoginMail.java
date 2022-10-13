@@ -12,8 +12,6 @@ import java.time.Duration;
 
 public class LoginMail {
 
-    private static final String MAIL_URL = "https://mail.ru/";
-
     private final WebDriver driver;
     private final WebDriverWait wait;
 
@@ -21,10 +19,10 @@ public class LoginMail {
     private WebElement openLogin;
 
     @FindBy(name = "username")
-    private WebElement nameField;
+    private WebElement fillNameField;
 
     @FindBy(name = "password")
-    private WebElement passwordField;
+    private WebElement fillPasswordField;
 
     @FindBy(className = "submit-button-wrap")
     private WebElement clickButton;
@@ -35,20 +33,16 @@ public class LoginMail {
         PageFactory.initElements(driver, this);
     }
 
-    public void open() {
-        driver.navigate().to(MAIL_URL);
-    }
-
     public void openLogin() {
         wait.until(ExpectedConditions.elementToBeClickable(openLogin)).click();
     }
 
-    public void nameField(String value) {
-        wait.until(ExpectedConditions.visibilityOf(nameField)).sendKeys(value);
+    public void fillNameField(String value) {
+        wait.until(ExpectedConditions.visibilityOf(fillNameField)).sendKeys(value);
     }
 
-    public void passwordField(String value) {
-        wait.until(ExpectedConditions.visibilityOf(passwordField)).sendKeys(value);
+    public void fillPasswordField(String value) {
+        wait.until(ExpectedConditions.visibilityOf(fillPasswordField)).sendKeys(value);
     }
 
     public void clickLogin() {
