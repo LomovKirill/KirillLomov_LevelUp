@@ -50,7 +50,7 @@ public class CreateEmail {
     }
 
     public void fieldTo(String value) {
-        wait.until(ExpectedConditions.elementToBeClickable(fieldTo)).sendKeys(value);
+        wait.until(ExpectedConditions.visibilityOf(fieldTo)).sendKeys(value);
     }
 
     public void fieldSubject(String value) {

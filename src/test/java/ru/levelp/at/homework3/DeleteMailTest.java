@@ -5,11 +5,11 @@ import org.openqa.selenium.By;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SendMailTest extends BaseTest {
+public class DeleteMailTest extends BaseTest{
 
     @Test
-    public void creatingAndSendingEmail() {
-        String subject = "Тест как он есть";
+    public void creatingAndSendingAndRemovingEmail() {
+        String subject = faker.toString();
         String body = faker.toString();
 
         var loginMail = new LoginMail(driver);
@@ -33,13 +33,20 @@ public class SendMailTest extends BaseTest {
         createMail.clickCloseAfter();
 
         var openFolderEmail = new OpenFolderEmail(driver);
-        openFolderEmail.openSent();
+        openFolderEmail.openYourselfMail();
+
         SleepUtils.sleep(2000);
         String actualSubject = driver.findElement(By.xpath("//div[@class='layout__main-frame']//a[1]//span[@class='ll-sj__normal']")).getText();
-        assertThat(actualSubject).isEqualToIgnoringCase("Self: " + subject);
+        assertThat(actualSubject).isEqualToIgnoringCase(subject);
+        assertThat(driver.getPageSource().contains(EMAIL)).isEqualTo(true);
+        assertThat(driver.getPageSource().contains(body)).isEqualTo(true);
 
-        openFolderEmail.openYourselfFolder();
+        var deleteMail = new DeleteEmail(driver);
+        deleteMail.markMail();
+        deleteMail.deleteMail();
+
         SleepUtils.sleep(2000);
+        openFolderEmail.openBasket();
         actualSubject = driver.findElement(By.xpath("//div[@class='layout__main-frame']//a[1]//span[@class='ll-sj__normal']")).getText();
         assertThat(actualSubject).isEqualToIgnoringCase(subject);
         assertThat(driver.getPageSource().contains(EMAIL)).isEqualTo(true);

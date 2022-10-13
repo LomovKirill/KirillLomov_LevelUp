@@ -31,6 +31,6 @@ public class LogoutMail {
     }
 
     public void exit() {
-        wait.until(ExpectedConditions.visibilityOf(exit)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(exit)).click();
     }
 }
