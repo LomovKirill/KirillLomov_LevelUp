@@ -20,9 +20,8 @@ public class SendMailTest extends BaseTest {
         loginMail.fillPasswordField(PASSWORD);
         loginMail.clickLogin();
 
-        SleepUtils.sleep(4000);
-        assertThat(driver.getTitle()).contains("Входящие");
-        driver.findElement(By.xpath("//*[@data-click-counter='116987833']")).click();
+        SleepUtils.sleep(5000);
+        assertThat(driver.getTitle()).contains(INBOX);
 
         var createMail = new CreateEmail(driver);
         createMail.clickWriteEmail();

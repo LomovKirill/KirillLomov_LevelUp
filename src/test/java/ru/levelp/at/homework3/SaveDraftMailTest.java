@@ -18,10 +18,8 @@ public class SaveDraftMailTest extends BaseTest {
         loginMail.clickLogin();
         loginMail.fillPasswordField(PASSWORD);
         loginMail.clickLogin();
-
-        SleepUtils.sleep(4000);
-        assertThat(driver.getTitle()).contains("Входящие");
-        driver.findElement(By.xpath("//*[@data-click-counter='116987833']")).click();
+        SleepUtils.sleep(5000);
+        assertThat(driver.getTitle()).contains(INBOX);
 
         var createMail = new CreateEmail(driver);
         createMail.clickWriteEmail();
@@ -30,18 +28,17 @@ public class SaveDraftMailTest extends BaseTest {
         createMail.fieldBody(body);
         createMail.clickSave();
         createMail.clickClose();
-
+        SleepUtils.sleep(2000);
         var openFolderEmail = new OpenFolderEmail(driver);
         openFolderEmail.openDraft();
         SleepUtils.sleep(2000);
         String actualDraft = driver.findElement(By.xpath("//div[@class='layout__main-frame']//a[1]//span[@class='ll-sj__normal']")).getText();
         assertThat(actualDraft).isEqualToIgnoringCase(subject);
-        assertThat(driver.getPageSource().contains(EMAIL)).isEqualTo(true);
+        assertThat(driver.getPageSource().contains(subject)).isEqualTo(true);
         assertThat(driver.getPageSource().contains(body)).isEqualTo(true);
 
         driver.findElement(By.xpath("//div[@role='rowgroup']/a[1]")).click();
         createMail.clickSend();
-        SleepUtils.sleep(2000);
         createMail.clickCloseAfter();
 
         SleepUtils.sleep(2000);

@@ -41,7 +41,7 @@ public class CreateEmail {
 
     public CreateEmail(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofMillis(1500));
+        wait = new WebDriverWait(driver, Duration.ofMillis(2000));
         PageFactory.initElements(driver, this);
     }
 

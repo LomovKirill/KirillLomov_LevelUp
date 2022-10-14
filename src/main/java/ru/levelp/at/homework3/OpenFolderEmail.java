@@ -21,7 +21,7 @@ public class OpenFolderEmail {
     @FindBy(linkText = "Отправленные")
     private WebElement openSent;
 
-    @FindBy(xpath = "//a[@href='/trash/']")
+    @FindBy(xpath = "//a[@href='/trash/']//div[2]")
     private WebElement openBasket;
 
     @FindBy(xpath = "//div[@role='rowgroup']/div[4]")
@@ -32,7 +32,7 @@ public class OpenFolderEmail {
 
     public OpenFolderEmail(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofMillis(2000));
+        wait = new WebDriverWait(driver, Duration.ofMillis(5000));
         PageFactory.initElements(driver, this);
     }
 
