@@ -20,9 +20,8 @@ public class DeleteMailTest extends BaseTest{
         loginMail.fillPasswordField(PASSWORD);
         loginMail.clickLogin();
 
-        SleepUtils.sleep(4000);
-        assertThat(driver.getTitle()).contains("Входящие");
-        driver.findElement(By.xpath("//*[@data-click-counter='116987833']")).click();
+        SleepUtils.sleep(5000);
+        assertThat(driver.getTitle()).contains(INBOX);
 
         var createMail = new CreateEmail(driver);
         createMail.clickWriteEmail();
@@ -45,8 +44,8 @@ public class DeleteMailTest extends BaseTest{
         deleteMail.markMail();
         deleteMail.deleteMail();
 
-        SleepUtils.sleep(2000);
         openFolderEmail.openBasket();
+        SleepUtils.sleep(2000);
         actualSubject = driver.findElement(By.xpath("//div[@class='layout__main-frame']//a[1]//span[@class='ll-sj__normal']")).getText();
         assertThat(actualSubject).isEqualToIgnoringCase(subject);
         assertThat(driver.getPageSource().contains(EMAIL)).isEqualTo(true);

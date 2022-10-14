@@ -13,6 +13,7 @@ public abstract class BaseTest {
     protected static final String LOGIN = "klomovtest";
     protected static final String PASSWORD = "TestPassword123";
     protected static final String EMAIL = "klomovtest@mail.ru";
+    protected static final String INBOX = "Входящие";
 
     protected WebDriver driver;
     protected Faker faker;

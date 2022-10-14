@@ -17,7 +17,7 @@ public class DeleteEmail {
     @FindBy(xpath = "//div[@role='rowgroup']/a[1]//button")
     private WebElement markMail;
 
-    @FindBy(xpath = "//*[@title='Удалить']")
+    @FindBy(xpath = "//*[@data-title-shortcut='Del']")
     private WebElement deleteMail;
 
     public DeleteEmail(WebDriver driver) {
