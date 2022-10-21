@@ -5,7 +5,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.titleContains;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,9 +64,9 @@ public class SendMailTest {
 
         driver.manage().timeouts().implicitlyWait(Duration.ZERO);
         try {
-            String actualSubject = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div"
-                + "[@class='layout__main-frame']//span[@class='ll-sj__normal']"))).getText();
-            assertThat(actualSubject).isEqualToIgnoringCase("Self: " + "Тест как он есть");
+            assertThat(wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//div"
+                + "[@class='layout__main-frame']//span[@class='ll-sj__normal']"), "Тест как он есть")))
+                .isTrue();
         } finally {
             driver.manage().timeouts().implicitlyWait(implicitWaitDuration);
         }
@@ -76,9 +75,9 @@ public class SendMailTest {
 
         driver.manage().timeouts().implicitlyWait(Duration.ZERO);
         try {
-            String actualSubject = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div"
-                + "[@class='layout__main-frame']//a[1]//span[@class='ll-sj__normal']"))).getText();
-            assertThat(actualSubject).isEqualToIgnoringCase("Тест как он есть");
+            assertThat(wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//div"
+                + "[@class='layout__main-frame']//a[1]//span[@class='ll-sj__normal']"), "Тест как он есть")))
+                .isTrue();
         } finally {
             driver.manage().timeouts().implicitlyWait(implicitWaitDuration);
         }

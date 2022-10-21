@@ -58,7 +58,7 @@ public class SaveDraftMailTest {
               .sendKeys("klomovtest@mail.ru");
         driver.findElement(
             By.xpath("//div[@class='subject__container--HWnat']//input[@class='container--H9L5q size_s--3_M-_']"))
-              .sendKeys("Тема письма");
+              .sendKeys("Тема письма 1");
         driver.findElement(By.xpath("//div[@role='textbox']/div[1]")).sendKeys("Тест задания 1");
         driver.findElement(By.xpath("//button[@data-test-id='save']")).click();
         driver.findElement(By.xpath("//button[@title='Закрыть']")).click();
@@ -67,12 +67,12 @@ public class SaveDraftMailTest {
         try {
             String actualDraft = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div"
                 + "[@class='layout__main-frame']//a[1]//span[@class='ll-sj__normal']"))).getText();
-            assertThat(actualDraft).contains("Тема письма");
+            assertThat(actualDraft).contains("Тема письма 1");
         } finally {
             driver.manage().timeouts().implicitlyWait(implicitWaitDuration);
         }
 
-        assertThat(driver.getPageSource().contains("Тема письма")).isEqualTo(true);
+        assertThat(driver.getPageSource().contains("klomovtest@mail.ru")).isEqualTo(true);
         assertThat(driver.getPageSource().contains("Тест задания 1")).isEqualTo(true);
 
         driver.findElement(By.xpath("//div[@role='rowgroup']/a[1]")).click();
@@ -95,7 +95,7 @@ public class SaveDraftMailTest {
         try {
             String actualDraft = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div"
                 + "[@class='layout__main-frame']//a[1]//span[@class='ll-sj__normal']"))).getText();
-            assertThat(actualDraft).isEqualToIgnoringCase("Self: " + "Тема письма");
+            assertThat(actualDraft).isEqualToIgnoringCase("Self: " + "Тема письма 1");
         } finally {
             driver.manage().timeouts().implicitlyWait(implicitWaitDuration);
         }
