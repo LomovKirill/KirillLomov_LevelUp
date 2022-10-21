@@ -4,11 +4,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-@SuppressWarnings("checkstyle:EmptyLineSeparator")
 public class GetProperties {
 
     protected static FileInputStream fileInputStream;
     protected static Properties PROPERTIES;
+
     static {
         try {
             fileInputStream = new FileInputStream("src/test/resources/config.properties");
