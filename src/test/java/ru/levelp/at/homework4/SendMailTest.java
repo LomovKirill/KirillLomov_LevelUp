@@ -3,12 +3,6 @@ package ru.levelp.at.homework4;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import ru.levelp.at.homework4.CreateEmail;
-import ru.levelp.at.homework4.LoginMail;
-import ru.levelp.at.homework4.LogoutMail;
-import ru.levelp.at.homework4.OpenFolderEmail;
-import ru.levelp.at.homework4.SleepUtils;
 
 public class SendMailTest extends BaseTest {
 
@@ -17,19 +11,19 @@ public class SendMailTest extends BaseTest {
         final String subject = "Тест " + faker.toString();
         final String body = faker.toString();
 
-        var loginMail = new LoginMail(driver);
+        var loginMail = new LoginMailPage(driver);
         loginMail.openLogin();
         loginMail.switchFrame();
         loginMail.fillNameField(GetProperties.getProperty("mail.login"));
         loginMail.clickLogin();
         loginMail.fillPasswordField(GetProperties.getProperty("mail.password"));
         loginMail.clickLogin();
-        SleepUtils.sleep(15000);
-        assertThat(driver.getTitle()).contains(INBOX);
+        assertThat(loginMail.getTitlePageAfterLogin()).isTrue();
 
-        driver.findElement(By.xpath("//*[@class='ph-project-promo-close-icon__container svelte-m7oyyo']")).click();
+        var mainFramePage = new MainFramePage(driver);
+        mainFramePage.closePromo();
 
-        var createMail = new CreateEmail(driver);
+        var createMail = new CreateEmailPage(driver);
         createMail.clickWriteEmail();
         createMail.fieldTo(EMAIL);
         createMail.fieldSubject(subject);
@@ -37,22 +31,16 @@ public class SendMailTest extends BaseTest {
         createMail.clickSend();
         createMail.clickCloseAfter();
 
-        var openFolderEmail = new OpenFolderEmail(driver);
+        var openFolderEmail = new OpenFolderEmailAction(driver);
         openFolderEmail.openSent();
-        SleepUtils.sleep(2000);
-        String actualSubject = driver.findElement(By.xpath("//div[@class='layout__main-frame']"
-            + "//a[1]//span[@class='ll-sj__normal']")).getText();
-        assertThat(actualSubject).isEqualToIgnoringCase("Self: " + subject);
+        assertThat(mainFramePage.getSubjectMail(subject)).isTrue();
 
         openFolderEmail.openYourselfFolder();
-        SleepUtils.sleep(2000);
-        actualSubject = driver.findElement(By.xpath("//div[@class='layout__main-frame']//a[1]"
-            + "//span[@class='ll-sj__normal']")).getText();
-        assertThat(actualSubject).isEqualToIgnoringCase(subject);
-        assertThat(driver.getPageSource().contains(EMAIL)).isEqualTo(true);
-        assertThat(driver.getPageSource().contains(body)).isEqualTo(true);
+        assertThat(mainFramePage.getSubjectMail(subject)).isTrue();
+        assertThat(mainFramePage.getEmail(YOUR_SELF_NAME)).isTrue();
+        assertThat(mainFramePage.getBodyMail(body)).isTrue();
 
-        var logoutMail = new LogoutMail(driver);
+        var logoutMail = new AccountWindowPage(driver);
         logoutMail.openLogin();
         logoutMail.exit();
     }

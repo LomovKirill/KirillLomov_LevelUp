@@ -1,17 +1,11 @@
 package ru.levelp.at.homework4;
 
-import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CreateEmail {
-
-    private final WebDriver driver;
-    private final WebDriverWait wait;
+public class CreateEmailPage extends BasePage<CreateEmailPage> {
 
     @FindBy(className = "compose-button__txt")
     private WebElement clickWriteEmail;
@@ -37,11 +31,8 @@ public class CreateEmail {
     @FindBy(xpath = "//span[@title='Закрыть']")
     private WebElement clickCloseAfter;
 
-
-    public CreateEmail(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofMillis(3000));
-        PageFactory.initElements(driver, this);
+    protected CreateEmailPage(WebDriver driver) {
+        super(driver);
     }
 
     public void clickWriteEmail() {

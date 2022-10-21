@@ -1,18 +1,12 @@
 package ru.levelp.at.homework4;
 
-import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginMail {
-
-    private final WebDriver driver;
-    private final WebDriverWait wait;
+public class LoginMailPage extends BasePage<LoginMailPage> {
 
     @FindBy(xpath = "//*[@class=\"ph-login svelte-1hiqrvn\"]")
     private WebElement openLogin;
@@ -26,10 +20,8 @@ public class LoginMail {
     @FindBy(className = "submit-button-wrap")
     private WebElement clickButton;
 
-    public LoginMail(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofMillis(5000));
-        PageFactory.initElements(driver, this);
+    public LoginMailPage(WebDriver driver) {
+        super(driver);
     }
 
     public void openLogin() {
@@ -50,7 +42,10 @@ public class LoginMail {
 
     public void switchFrame() {
         WebElement iframe = driver.findElement(By.cssSelector("iframe.ag-popup__frame__layout__iframe"));
-        SleepUtils.sleep(1500);
         driver.switchTo().frame(iframe);
+    }
+
+    public Boolean getTitlePageAfterLogin() {
+        return wait.until(ExpectedConditions.titleContains("Входящие"));
     }
 }

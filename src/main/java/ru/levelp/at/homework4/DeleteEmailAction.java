@@ -1,17 +1,11 @@
 package ru.levelp.at.homework4;
 
-import java.time.Duration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class DeleteEmail {
-
-    private final WebDriver driver;
-    private final WebDriverWait wait;
+public class DeleteEmailAction extends BasePage<DeleteEmailAction> {
 
     @FindBy(xpath = "//div[@role='rowgroup']/a[1]//button")
     private WebElement markMail;
@@ -19,10 +13,8 @@ public class DeleteEmail {
     @FindBy(xpath = "//*[@data-title-shortcut='Del']")
     private WebElement deleteMail;
 
-    public DeleteEmail(WebDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofMillis(2000));
-        PageFactory.initElements(driver, this);
+    protected DeleteEmailAction(WebDriver driver) {
+        super(driver);
     }
 
     public void markMail() {

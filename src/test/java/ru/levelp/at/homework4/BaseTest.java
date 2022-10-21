@@ -11,7 +11,7 @@ public abstract class BaseTest {
 
     protected static final String MAIL_RU_URL = "https://mail.ru/";
     protected static final String EMAIL = "klomovtest@mail.ru";
-    protected static final String INBOX = "Входящие";
+    protected static final String YOUR_SELF_NAME = "Кирилл Ломов";
 
     protected WebDriver driver;
     protected Faker faker;
@@ -24,7 +24,6 @@ public abstract class BaseTest {
         faker = new Faker();
         driver.navigate().to(MAIL_RU_URL);
         driver.manage().window().maximize();
-        SleepUtils.sleep(1500);
     }
 
     @AfterEach
