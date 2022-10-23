@@ -71,5 +71,7 @@ public class GetUsersResponseData {
         private String email;
         private String gender;
         private String status;
+        private String field;
+        private String message;
     }
 }
