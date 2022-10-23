@@ -1,4 +1,4 @@
-package ru.levelp.at.homework6;
+package ru.levelp.at.homework6.users;
 
 import com.github.javafaker.Faker;
 import org.junit.jupiter.params.provider.Arguments;

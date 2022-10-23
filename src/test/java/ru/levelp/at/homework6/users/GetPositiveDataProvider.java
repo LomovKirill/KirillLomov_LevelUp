@@ -1,4 +1,4 @@
-package ru.levelp.at.homework6;
+package ru.levelp.at.homework6.users;
 
 import org.junit.jupiter.params.provider.Arguments;
 import java.util.stream.Stream;
