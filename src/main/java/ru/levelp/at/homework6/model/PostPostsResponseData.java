@@ -1,4 +1,4 @@
-package ru.levelp.at.homework6;
+package ru.levelp.at.homework6.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import ru.levelp.at.homework6.GetPostsResponseData.DataData;
-import ru.levelp.at.homework6.GetPostsResponseData.MetaData;
+import ru.levelp.at.homework6.model.GetPostsResponseData.DataData;
+import ru.levelp.at.homework6.model.GetPostsResponseData.MetaData;
 
 @Data
 @NoArgsConstructor

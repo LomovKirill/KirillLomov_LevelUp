@@ -10,14 +10,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.levelp.at.homework6.GetPostsResponseData;
-import ru.levelp.at.homework6.PostClient;
-import ru.levelp.at.homework6.PostPostsRequestData;
-import ru.levelp.at.homework6.PostPostsResponseData;
+import ru.levelp.at.homework6.PostsClient;
+import ru.levelp.at.homework6.model.GetPostsResponseData;
+import ru.levelp.at.homework6.model.PostPostsRequestData;
+import ru.levelp.at.homework6.model.PostPostsResponseData;
 
-public class PostPositiveTest {
+public class PostsPositiveTest {
 
-    private PostClient postClient;
+    private PostsClient postClient;
 
     @BeforeEach
     void setUp() {
@@ -37,7 +37,7 @@ public class PostPositiveTest {
         RestAssured.requestSpecification = requestSpecification;
         RestAssured.responseSpecification = responseSpecification;
 
-        postClient = new PostClient();
+        postClient = new PostsClient();
     }
 
     @Test
@@ -56,7 +56,7 @@ public class PostPositiveTest {
     }
 
     @ParameterizedTest
-    @MethodSource("ru.levelp.at.homework6.posts.PostPositiveDataProvider#dataTest")
+    @MethodSource("ru.levelp.at.homework6.posts.positive.data.provider.PostPositiveDataProvider#dataTest")
     void createPost(int userId, String title, String body) {
 
         var requestData = PostPostsRequestData
@@ -81,14 +81,14 @@ public class PostPositiveTest {
     }
 
     @ParameterizedTest
-    @MethodSource("ru.levelp.at.homework6.posts.GetPositiveDataProvider#dataTest")
+    @MethodSource("ru.levelp.at.homework6.posts.positive.data.provider.GetPositiveDataProvider#dataTest")
     void getPost(int id) {
 
-        PostPostsResponseData response = postClient.requestGetPostId(id)
-                                                  .then()
-                                                  .statusCode(200)
-                                                  .extract()
-                                                  .as(PostPostsResponseData.class);
+        PostPostsResponseData response = postClient.requestGetPostsId(id)
+                                                   .then()
+                                                   .statusCode(200)
+                                                   .extract()
+                                                   .as(PostPostsResponseData.class);
 
         SoftAssertions.assertSoftly(softly -> {
             softly.assertThat(response.getMeta()).isNull();
@@ -97,7 +97,7 @@ public class PostPositiveTest {
     }
 
     @ParameterizedTest
-    @MethodSource("ru.levelp.at.homework6.posts.PutPositiveDataProvider#dataTest")
+    @MethodSource("ru.levelp.at.homework6.posts.positive.data.provider.PutPositiveDataProvider#dataTest")
     void changePost(int id, int userId, String title, String body) {
 
         var requestData = PostPostsRequestData
@@ -107,7 +107,7 @@ public class PostPositiveTest {
             .body(body)
             .build();
 
-        PostPostsResponseData response = postClient.requestPutPostId(id, requestData)
+        PostPostsResponseData response = postClient.requestPutPostsId(id, requestData)
                                                    .then()
                                                    .statusCode(200)
                                                    .extract()
@@ -123,7 +123,7 @@ public class PostPositiveTest {
     }
 
     @ParameterizedTest
-    @MethodSource("ru.levelp.at.homework6.posts.PostPositiveDataProvider#dataTest")
+    @MethodSource("ru.levelp.at.homework6.posts.positive.data.provider.PostPositiveDataProvider#dataTest")
     void deletePost(int userId, String title, String body) {
 
         var requestData = PostPostsRequestData
@@ -134,15 +134,15 @@ public class PostPositiveTest {
             .build();
 
         PostPostsResponseData responseId = postClient.requestPostPosts(requestData)
-                                                   .then()
-                                                   .statusCode(201)
-                                                   .extract()
-                                                   .as(PostPostsResponseData.class);
+                                                     .then()
+                                                     .statusCode(201)
+                                                     .extract()
+                                                     .as(PostPostsResponseData.class);
 
-        int id =  responseId.getData().getId();
+        int id = responseId.getData().getId();
 
-        postClient.requestDeletePostId(id)
-                   .then()
-                   .statusCode(204);
+        postClient.requestDeletePostsId(id)
+                  .then()
+                  .statusCode(204);
     }
 }

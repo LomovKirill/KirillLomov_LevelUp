@@ -5,16 +5,16 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
+import java.util.Map;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.levelp.at.homework6.GetUsersResponseData;
-import ru.levelp.at.homework6.PostAndPutUsersRequestData;
-import ru.levelp.at.homework6.PostUsersResponseData;
 import ru.levelp.at.homework6.UsersClient;
-import java.util.Map;
+import ru.levelp.at.homework6.model.GetUsersResponseData;
+import ru.levelp.at.homework6.model.PostAndPutUsersRequestData;
+import ru.levelp.at.homework6.model.PostUsersResponseData;
 
 public class UsersPositiveTest {
 
@@ -57,7 +57,7 @@ public class UsersPositiveTest {
     }
 
     @ParameterizedTest
-    @MethodSource("ru.levelp.at.homework6.users.GetPositiveDataProvider#dataTest")
+    @MethodSource("ru.levelp.at.homework6.users.positive.data.provider.GetPositiveDataProvider#dataTest")
     void getUser(String name, String email, String gender, String status) {
 
         GetUsersResponseData response =
@@ -78,7 +78,7 @@ public class UsersPositiveTest {
     }
 
     @ParameterizedTest
-    @MethodSource("ru.levelp.at.homework6.users.PostAndPutPositiveDataProvider#dataTest")
+    @MethodSource("ru.levelp.at.homework6.users.positive.data.provider.PostAndPutPositiveDataProvider#dataTest")
     void createUsers(String name, String email, String gender, String status) {
         var requestData = PostAndPutUsersRequestData
             .builder()
@@ -104,7 +104,7 @@ public class UsersPositiveTest {
     }
 
     @ParameterizedTest
-    @MethodSource("ru.levelp.at.homework6.users.GetPositiveDataProvider#dataTest")
+    @MethodSource("ru.levelp.at.homework6.users.positive.data.provider.GetPositiveDataProvider#dataTest")
     void getUserId(String name, String email, String gender, String status, int id) {
 
         PostUsersResponseData response =
@@ -124,7 +124,7 @@ public class UsersPositiveTest {
     }
 
     @ParameterizedTest
-    @MethodSource("ru.levelp.at.homework6.users.PostAndPutPositiveDataProvider#dataTest")
+    @MethodSource("ru.levelp.at.homework6.users.positive.data.provider.PostAndPutPositiveDataProvider#dataTest")
     void changeUsers(String name, String email, String gender, String status, int id) {
         var requestData = PostAndPutUsersRequestData
             .builder()
@@ -150,7 +150,7 @@ public class UsersPositiveTest {
     }
 
     @ParameterizedTest
-    @MethodSource("ru.levelp.at.homework6.users.DeletePositiveDataProvider#dataTest")
+    @MethodSource("ru.levelp.at.homework6.users.positive.data.provider.DeletePositiveDataProvider#dataTest")
     void deleteUsers(String name, String email, String gender, String status) {
 
         var requestData = PostAndPutUsersRequestData

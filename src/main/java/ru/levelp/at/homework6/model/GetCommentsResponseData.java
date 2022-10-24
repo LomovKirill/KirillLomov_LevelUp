@@ -1,4 +1,4 @@
-package ru.levelp.at.homework6;
+package ru.levelp.at.homework6.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -7,11 +7,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import ru.levelp.at.homework6.GetUsersResponseData.DataData;
-import ru.levelp.at.homework6.GetUsersResponseData.LinksData;
-import ru.levelp.at.homework6.GetUsersResponseData.MetaData;
-import ru.levelp.at.homework6.GetUsersResponseData.PaginationData;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,10 +14,10 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @Builder
-public class GetPostsResponseData {
+public class GetCommentsResponseData {
 
     private MetaData meta;
-    private List<DataData> data;
+    private DataData data;
 
     @Data
     @NoArgsConstructor
@@ -72,9 +67,11 @@ public class GetPostsResponseData {
     public static class DataData {
 
         private int id;
-        @JsonProperty("user_id")
-        private int userId;
-        private String title;
+        @JsonProperty("post_id")
+        private int postId;
+        private String name;
+        private String email;
         private String body;
+        private String message;
     }
 }

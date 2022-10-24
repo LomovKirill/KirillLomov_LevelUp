@@ -1,4 +1,4 @@
-package ru.levelp.at.homework6;
+package ru.levelp.at.homework6.model;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

@@ -1,16 +1,17 @@
 package ru.levelp.at.homework6;
 
+import static io.restassured.RestAssured.given;
+
 import io.restassured.response.Response;
 import java.util.Map;
-
-import static io.restassured.RestAssured.given;
+import ru.levelp.at.homework6.model.PostAndPutUsersRequestData;
 
 public class UsersClient {
 
     private static final String USERS = "/users";
     private static final String USERS_ID = USERS + "/{id}";
     private static final String AUTH = "Authorization";
-    private static final String TOKEN = "Bearer 38a8c4684b5054dcccf3ac1fda8fb4224d4b9dc2d879ddb3d37977900e920cde";
+    private static final String TOKEN = "Bearer " + GetProperties.getProperty("token");
 
     public Response requestGetUsers() {
         return given()

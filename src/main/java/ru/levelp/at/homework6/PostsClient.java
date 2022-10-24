@@ -1,15 +1,16 @@
 package ru.levelp.at.homework6;
 
-import io.restassured.response.Response;
-
 import static io.restassured.RestAssured.given;
 
-public class PostClient {
+import io.restassured.response.Response;
+import ru.levelp.at.homework6.model.PostPostsRequestData;
+
+public class PostsClient {
 
     private static final String POSTS = "/posts";
     private static final String POSTS_ID = POSTS + "/{id}";
     private static final String AUTH = "Authorization";
-    private static final String TOKEN = "Bearer 38a8c4684b5054dcccf3ac1fda8fb4224d4b9dc2d879ddb3d37977900e920cde";
+    private static final String TOKEN = "Bearer " + GetProperties.getProperty("token");
 
     public Response requestGetPosts() {
         return given()
@@ -19,16 +20,16 @@ public class PostClient {
             .thenReturn();
     }
 
-    public Response requestPostPosts(PostPostsRequestData requestData) {
+    public Response requestPostPosts(PostPostsRequestData postUsersRequestData) {
         return given()
             .header(AUTH, TOKEN)
-            .body(requestData)
+            .body(postUsersRequestData)
             .when()
             .post(POSTS)
             .thenReturn();
     }
 
-    public Response requestGetPostId(int id) {
+    public Response requestGetPostsId(int id) {
         return given()
             .header(AUTH, TOKEN)
             .when()
@@ -36,16 +37,16 @@ public class PostClient {
             .thenReturn();
     }
 
-    public Response requestPutPostId(int id, PostPostsRequestData requestData) {
+    public Response requestPutPostsId(int id, PostPostsRequestData postUsersRequestData) {
         return given()
             .header(AUTH, TOKEN)
-            .body(requestData)
+            .body(postUsersRequestData)
             .when()
             .put(POSTS_ID, id)
             .thenReturn();
     }
 
-    public Response requestDeletePostId(int id) {
+    public Response requestDeletePostsId(int id) {
         return given()
             .header(AUTH, TOKEN)
             .when()

@@ -1,4 +1,4 @@
-package ru.levelp.at.homework6;
+package ru.levelp.at.homework6.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -14,10 +14,11 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Builder
-public class PostPostsRequestData {
+public class PostAndPutCommentsRequestData {
 
-    @JsonProperty("user_id")
-    private int userId;
-    private String title;
+    @JsonProperty("post_id")
+    private int postId;
+    private String name;
+    private String email;
     private String body;
 }

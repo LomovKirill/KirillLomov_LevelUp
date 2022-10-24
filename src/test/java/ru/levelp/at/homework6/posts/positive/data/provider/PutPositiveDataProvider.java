@@ -1,8 +1,8 @@
-package ru.levelp.at.homework6.posts;
+package ru.levelp.at.homework6.posts.positive.data.provider;
 
 import com.github.javafaker.Faker;
-import org.junit.jupiter.params.provider.Arguments;
 import java.util.stream.Stream;
+import org.junit.jupiter.params.provider.Arguments;
 
 public class PutPositiveDataProvider {
     public static Stream<Arguments> dataTest() {
@@ -10,7 +10,7 @@ public class PutPositiveDataProvider {
 
         return Stream.of(
             Arguments.of(1783, faker.random().nextInt(1, 1000), faker.book().title(), faker.book().genre()),
-            Arguments.of(1790, faker.random().nextInt(1, 1000), faker.book().title(), faker.book().genre())
+            Arguments.of(300, faker.random().nextInt(1, 1000), faker.book().title(), faker.book().genre())
         );
     }
 }
