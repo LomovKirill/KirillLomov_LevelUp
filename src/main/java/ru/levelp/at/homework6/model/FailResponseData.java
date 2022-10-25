@@ -1,13 +1,13 @@
 package ru.levelp.at.homework6.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import ru.levelp.at.homework6.model.GetPostsResponseData.MetaData;
+import ru.levelp.at.homework6.model.GetUsersResponseData.MetaData;
 
 @Data
 @NoArgsConstructor
@@ -15,10 +15,10 @@ import ru.levelp.at.homework6.model.GetPostsResponseData.MetaData;
 @ToString
 @EqualsAndHashCode
 @Builder
-public class PostPostsResponseData {
+public class FailResponseData {
 
     private MetaData meta;
-    private DataData data;
+    private List<DataData> data;
 
     @Data
     @NoArgsConstructor
@@ -28,11 +28,7 @@ public class PostPostsResponseData {
     @Builder
     public static class DataData {
 
-        private int id;
-        @JsonProperty("user_id")
-        private int userId;
-        private String title;
-        private String body;
+        private String field;
         private String message;
     }
 }

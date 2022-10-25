@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.levelp.at.homework6.CommentsClient;
+import ru.levelp.at.homework6.model.FailResponseData;
 import ru.levelp.at.homework6.model.GetAllCommentsResponseData;
 import ru.levelp.at.homework6.model.GetCommentsResponseData;
 import ru.levelp.at.homework6.model.PostAndPutCommentsRequestData;
@@ -159,6 +160,30 @@ public class CommentsTest {
         SoftAssertions.assertSoftly(softly -> {
             softly.assertThat(response.getMeta()).isNull();
             softly.assertThat(response.getData().getMessage()).isEqualTo("Resource not found");
+        });
+    }
+
+    @Test
+    void postIncorrectParams() {
+        var requestData = PostAndPutCommentsRequestData
+            .builder()
+            .postId(0)
+            .name("")
+            .email("email")
+            .body("")
+            .build();
+
+        FailResponseData response = commentsClient.requestPost(requestData)
+                                                  .then()
+                                                  .statusCode(422)
+                                                  .extract()
+                                                  .as(FailResponseData.class);
+
+        SoftAssertions.assertSoftly(softly -> {
+            softly.assertThat(response.getMeta()).isNull();
+            softly.assertThat(response.getData().get(0).getField()).isNotEmpty();
+            softly.assertThat(response.getData().get(1).getField()).isNotEmpty();
+            softly.assertThat(response.getData().get(2).getField()).isNotEmpty();
         });
     }
 }

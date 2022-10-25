@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.levelp.at.homework6.UsersClient;
+import ru.levelp.at.homework6.model.FailResponseData;
 import ru.levelp.at.homework6.model.GetUsersResponseData;
 import ru.levelp.at.homework6.model.PostAndPutUsersRequestData;
 import ru.levelp.at.homework6.model.PostUsersResponseData;
@@ -72,12 +73,12 @@ public class UsersNegativeTest {
             .status(status)
             .build();
 
-        GetUsersResponseData response =
+        FailResponseData response =
             usersClient.requestPostUsers(requestData)
                        .then()
                        .statusCode(422)
                        .extract()
-                       .as(GetUsersResponseData.class);
+                       .as(FailResponseData.class);
 
         SoftAssertions.assertSoftly(softly -> {
             softly.assertThat(response.getMeta()).isNull();
@@ -98,12 +99,12 @@ public class UsersNegativeTest {
             .status(status)
             .build();
 
-        GetUsersResponseData response =
+        FailResponseData response =
             usersClient.requestPutUsersId(id, requestData)
                        .then()
                        .statusCode(422)
                        .extract()
-                       .as(GetUsersResponseData.class);
+                       .as(FailResponseData.class);
 
         SoftAssertions.assertSoftly(softly -> {
             softly.assertThat(response.getMeta()).isNull();
@@ -117,7 +118,7 @@ public class UsersNegativeTest {
         var faker = new Faker();
 
         PostUsersResponseData response =
-            usersClient.requestDeleteUsersId(faker.number().numberBetween(10000, 11111))
+            usersClient.requestDeleteUsersId(faker.number().numberBetween(100000, 111110))
                        .then()
                        .statusCode(404)
                        .extract()

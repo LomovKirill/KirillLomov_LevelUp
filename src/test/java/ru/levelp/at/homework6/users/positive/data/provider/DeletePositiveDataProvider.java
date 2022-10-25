@@ -10,9 +10,7 @@ public class DeletePositiveDataProvider {
 
         return Stream.of(
             Arguments.of(faker.name().fullName(), faker.internet().emailAddress(), "male", "active"),
-            Arguments.of(faker.name().fullName(), faker.internet().emailAddress(), "male", "inactive"),
-            Arguments.of(faker.name().fullName(), faker.internet().emailAddress(), "female", "active"),
-            Arguments.of(faker.name().fullName(), faker.internet().emailAddress(), "female", "inactive")
+            Arguments.of(faker.name().fullName(), faker.internet().emailAddress(), "male", "inactive")
         );
     }
 }

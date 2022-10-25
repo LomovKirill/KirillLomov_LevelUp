@@ -73,5 +73,7 @@ public class GetAllCommentsResponseData {
         private String name;
         private String email;
         private String body;
+        private String field;
+        private String message;
     }
 }

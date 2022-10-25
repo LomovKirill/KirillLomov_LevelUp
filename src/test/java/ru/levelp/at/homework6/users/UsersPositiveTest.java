@@ -1,5 +1,6 @@
 package ru.levelp.at.homework6.users;
 
+import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -57,8 +58,21 @@ public class UsersPositiveTest {
     }
 
     @ParameterizedTest
-    @MethodSource("ru.levelp.at.homework6.users.positive.data.provider.GetPositiveDataProvider#dataTest")
+    @MethodSource("ru.levelp.at.homework6.users.positive.data.provider.PostAndPutPositiveDataProvider#dataTest")
     void getUser(String name, String email, String gender, String status) {
+        var requestData = PostAndPutUsersRequestData
+            .builder()
+            .email(email)
+            .gender(gender)
+            .name(name)
+            .status(status)
+            .build();
+
+        usersClient.requestPostUsers(requestData)
+                   .then()
+                   .statusCode(201)
+                   .extract()
+                   .as(PostUsersResponseData.class);
 
         GetUsersResponseData response =
             usersClient.requestGetUsers(Map.of("name", name, "email", email, "gender", gender, "status", status))
@@ -104,8 +118,23 @@ public class UsersPositiveTest {
     }
 
     @ParameterizedTest
-    @MethodSource("ru.levelp.at.homework6.users.positive.data.provider.GetPositiveDataProvider#dataTest")
-    void getUserId(String name, String email, String gender, String status, int id) {
+    @MethodSource("ru.levelp.at.homework6.users.positive.data.provider.PostAndPutPositiveDataProvider#dataTest")
+    void getUserId(String name, String email, String gender, String status) {
+        var requestData = PostAndPutUsersRequestData
+            .builder()
+            .email(email)
+            .gender(gender)
+            .name(name)
+            .status(status)
+            .build();
+
+        PostUsersResponseData responseId = usersClient.requestPostUsers(requestData)
+                   .then()
+                   .statusCode(201)
+                   .extract()
+                   .as(PostUsersResponseData.class);
+
+        int id = responseId.getData().getId();
 
         PostUsersResponseData response =
             usersClient.requestGetUsersId(id, Map.of("name", name, "email", email, "gender", gender, "status", status))
@@ -125,7 +154,7 @@ public class UsersPositiveTest {
 
     @ParameterizedTest
     @MethodSource("ru.levelp.at.homework6.users.positive.data.provider.PostAndPutPositiveDataProvider#dataTest")
-    void changeUsers(String name, String email, String gender, String status, int id) {
+    void changeUsers(String name, String email, String gender, String status) {
         var requestData = PostAndPutUsersRequestData
             .builder()
             .email(email)
@@ -134,7 +163,23 @@ public class UsersPositiveTest {
             .status(status)
             .build();
 
-        PostUsersResponseData response = usersClient.requestPutUsersId(id, requestData)
+        PostUsersResponseData responseId = usersClient.requestPostUsers(requestData)
+                                                      .then()
+                                                      .statusCode(201)
+                                                      .extract()
+                                                      .as(PostUsersResponseData.class);
+        int id = responseId.getData().getId();
+
+        var faker = new Faker();
+        var requestPutData = PostAndPutUsersRequestData
+            .builder()
+            .email(faker.internet().emailAddress())
+            .gender(gender)
+            .status(status)
+            .name(faker.name().fullName())
+            .build();
+
+        PostUsersResponseData response = usersClient.requestPutUsersId(id, requestPutData)
                                                     .then()
                                                     .statusCode(200)
                                                     .extract()
@@ -142,17 +187,14 @@ public class UsersPositiveTest {
 
         SoftAssertions.assertSoftly(softly -> {
             softly.assertThat(response.getData().getId()).isEqualTo(id);
-            softly.assertThat(response.getData().getGender()).isEqualTo(gender);
-            softly.assertThat(response.getData().getName()).isEqualTo(requestData.getName());
-            softly.assertThat(response.getData().getEmail()).isEqualTo(requestData.getEmail());
-            softly.assertThat(response.getData().getStatus()).isEqualTo(requestData.getStatus());
+            softly.assertThat(response.getData().getName()).isEqualTo(requestPutData.getName());
+            softly.assertThat(response.getData().getEmail()).isEqualTo(requestPutData.getEmail());
         });
     }
 
     @ParameterizedTest
     @MethodSource("ru.levelp.at.homework6.users.positive.data.provider.DeletePositiveDataProvider#dataTest")
     void deleteUsers(String name, String email, String gender, String status) {
-
         var requestData = PostAndPutUsersRequestData
             .builder()
             .email(email)

@@ -9,10 +9,10 @@ public class PostAndPutPositiveDataProvider {
         var faker = new Faker();
 
         return Stream.of(
-            Arguments.of(faker.name().fullName(), faker.internet().emailAddress(), "male", "active", 101),
-            Arguments.of(faker.name().fullName(), faker.internet().emailAddress(), "male", "inactive", 102),
-            Arguments.of(faker.name().fullName(), faker.internet().emailAddress(), "female", "active", 103),
-            Arguments.of(faker.name().fullName(), faker.internet().emailAddress(), "female", "inactive", 104)
+            Arguments.of(faker.name().fullName(), faker.internet().emailAddress(), "male", "active"),
+            Arguments.of(faker.name().fullName(), faker.internet().emailAddress(), "male", "inactive"),
+            Arguments.of(faker.name().fullName(), faker.internet().emailAddress(), "female", "active"),
+            Arguments.of(faker.name().fullName(), faker.internet().emailAddress(), "female", "inactive")
         );
     }
 }

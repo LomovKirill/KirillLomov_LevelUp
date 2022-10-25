@@ -56,6 +56,9 @@
 
         <profile>
             <id>homework6-all-test</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <suite.name>**/homework6/AllApiTestSuite.java</suite.name>
             </properties>
