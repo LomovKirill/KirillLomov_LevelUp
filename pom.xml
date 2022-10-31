@@ -29,12 +29,46 @@
 
     <profiles>
         <profile>
+            <id>homework2-all-test</id>
+            <properties>
+                <suite.name>**/homework2/AllTestSuite.java</suite.name>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>homework2-negative-test</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <suite.name>**/homework2/NegativeSuite.java</suite.name>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>homework2-positive-test</id>
+            <properties>
+                <suite.name>**/homework2/PositiveSuite.java</suite.name>
+            </properties>
+        </profile>
+
+        <profile>
             <id>homework3-all-test</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <suite.name>**/AllTestSuite.java</suite.name>
+                <suite.name>**/homework3/AllTestSuite.java</suite.name>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>homework4-all-test</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <suite.name>**/homework4/AllTestSuite.java</suite.name>
             </properties>
         </profile>
     </profiles>
@@ -60,6 +94,7 @@
             <version>${assertj-core.version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
@@ -77,7 +112,6 @@
             <artifactId>javafaker</artifactId>
             <version>${javafaker.version}</version>
         </dependency>
-
     </dependencies>
 
     <build>
