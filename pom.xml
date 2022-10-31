@@ -16,8 +16,11 @@
         <junit-platform-suite.version>1.9.0</junit-platform-suite.version>
         <assertj-core.version>3.23.1</assertj-core.version>
         <checkstyle.version>10.3.3</checkstyle.version>
+        <selenium-java.version>4.4.0</selenium-java.version>
+        <webdrivermanager.version>5.3.0</webdrivermanager.version>
+        <javafaker.version>1.0.2</javafaker.version>
 
-        <maven-failsafe-plugin.version>3.0.0-M7</maven-failsafe-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0-M6</maven-failsafe-plugin.version>
         <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
 
         <suite.base.dir>${project.basedir}/src/test/java</suite.base.dir>
@@ -26,26 +29,12 @@
 
     <profiles>
         <profile>
-            <id>homework2-all-test</id>
-            <properties>
-                <suite.name>**/AllTestSuite.java</suite.name>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>homework2-negative-test</id>
+            <id>homework3-all-test</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <suite.name>**/NegativeSuite.java</suite.name>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>homework2-positive-test</id>
-            <properties>
-                <suite.name>**/PositiveSuite.java</suite.name>
+                <suite.name>**/AllTestSuite.java</suite.name>
             </properties>
         </profile>
     </profiles>
@@ -71,6 +60,24 @@
             <version>${assertj-core.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium-java.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>${javafaker.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
