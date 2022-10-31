@@ -24,6 +24,7 @@
         <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
 
         <suite.base.dir>${project.basedir}/src/test/java</suite.base.dir>
+
     </properties>
 
     <profiles>
@@ -48,6 +49,16 @@
             <id>homework2-positive-test</id>
             <properties>
                 <suite.name>**/homework2/PositiveSuite.java</suite.name>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>homework3-all-test</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <suite.name>**/homework3/AllTestSuite.java</suite.name>
             </properties>
         </profile>
 
