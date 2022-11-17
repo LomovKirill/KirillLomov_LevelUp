@@ -48,7 +48,7 @@ public class UsersNegativeTest {
     void getEmptyUser(String name, String email, String gender, String status) {
 
         GetUsersResponseData response =
-            usersClient.requestGetUsers(Map.of("name", name, "email", email, "gender", gender, "status", status))
+            usersClient.getUsers(Map.of("name", name, "email", email, "gender", gender, "status", status))
                        .then()
                        .statusCode(200)
                        .extract()
@@ -74,7 +74,7 @@ public class UsersNegativeTest {
             .build();
 
         FailResponseData response =
-            usersClient.requestPostUsers(requestData)
+            usersClient.postUsers(requestData)
                        .then()
                        .statusCode(422)
                        .extract()
@@ -100,7 +100,7 @@ public class UsersNegativeTest {
             .build();
 
         FailResponseData response =
-            usersClient.requestPutUsersId(id, requestData)
+            usersClient.putUsersId(id, requestData)
                        .then()
                        .statusCode(422)
                        .extract()
@@ -118,7 +118,7 @@ public class UsersNegativeTest {
         var faker = new Faker();
 
         PostUsersResponseData response =
-            usersClient.requestDeleteUsersId(faker.number().numberBetween(100000, 111110))
+            usersClient.deleteUsersId(faker.number().numberBetween(100000, 111110))
                        .then()
                        .statusCode(404)
                        .extract()

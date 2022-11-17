@@ -13,7 +13,7 @@ public class UsersClient {
     private static final String AUTH = "Authorization";
     private static final String TOKEN = "Bearer " + GetProperties.getProperty("token");
 
-    public Response requestGetUsers() {
+    public Response getUsers() {
         return given()
             .header(AUTH, TOKEN)
             .when()
@@ -21,7 +21,7 @@ public class UsersClient {
             .thenReturn();
     }
 
-    public Response requestGetUsers(Map<String, Object> queryParams) {
+    public Response getUsers(Map<String, Object> queryParams) {
         return given()
             .queryParams(queryParams)
             .header(AUTH, TOKEN)
@@ -30,7 +30,7 @@ public class UsersClient {
             .thenReturn();
     }
 
-    public Response requestPostUsers(PostAndPutUsersRequestData postUsersRequestData) {
+    public Response postUsers(PostAndPutUsersRequestData postUsersRequestData) {
         return given()
             .header(AUTH, TOKEN)
             .body(postUsersRequestData)
@@ -39,7 +39,7 @@ public class UsersClient {
             .thenReturn();
     }
 
-    public Response requestGetUsersId(int id, Map<String, Object> queryParams) {
+    public Response getUsersId(int id, Map<String, Object> queryParams) {
         return given()
             .queryParams(queryParams)
             .header(AUTH, TOKEN)
@@ -48,7 +48,7 @@ public class UsersClient {
             .thenReturn();
     }
 
-    public Response requestPutUsersId(int id, PostAndPutUsersRequestData postUsersRequestData) {
+    public Response putUsersId(int id, PostAndPutUsersRequestData postUsersRequestData) {
         return given()
             .header(AUTH, TOKEN)
             .body(postUsersRequestData)
@@ -57,7 +57,7 @@ public class UsersClient {
             .thenReturn();
     }
 
-    public Response requestDeleteUsersId(int id) {
+    public Response deleteUsersId(int id) {
         return given()
             .header(AUTH, TOKEN)
             .when()
