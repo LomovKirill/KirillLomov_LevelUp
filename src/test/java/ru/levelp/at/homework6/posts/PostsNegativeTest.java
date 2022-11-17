@@ -52,7 +52,7 @@ public class PostsNegativeTest {
             .build();
 
         FailResponseData response =
-            postClient.requestPostPosts(requestData)
+            postClient.createPost(requestData)
                       .then()
                       .statusCode(422)
                       .extract()
@@ -75,7 +75,7 @@ public class PostsNegativeTest {
             .build();
 
         FailResponseData response =
-            postClient.requestPostPosts(requestData)
+            postClient.createPost(requestData)
                       .then()
                       .statusCode(422)
                       .extract()
@@ -92,7 +92,7 @@ public class PostsNegativeTest {
     @Test
     void deleteEmptyId() {
 
-        PostPostsResponseData response = postClient.requestDeletePostsId(0)
+        PostPostsResponseData response = postClient.deletePost(0)
                   .then()
                   .statusCode(404)
                   .extract()

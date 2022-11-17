@@ -9,8 +9,8 @@ public class PutPositiveDataProvider {
         var faker = new Faker();
 
         return Stream.of(
-            Arguments.of(1783, faker.random().nextInt(1, 1000), faker.book().title(), faker.book().genre()),
-            Arguments.of(300, faker.random().nextInt(1, 1000), faker.book().title(), faker.book().genre())
+            Arguments.of(faker.random().nextInt(1, 1000), faker.book().title(), faker.book().genre()),
+            Arguments.of(faker.random().nextInt(1, 1000), faker.book().title(), faker.book().genre())
         );
     }
 }

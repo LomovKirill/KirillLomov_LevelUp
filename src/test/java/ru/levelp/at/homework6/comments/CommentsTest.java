@@ -15,7 +15,8 @@ import ru.levelp.at.homework6.CommentsClient;
 import ru.levelp.at.homework6.model.FailResponseData;
 import ru.levelp.at.homework6.model.GetAllCommentsResponseData;
 import ru.levelp.at.homework6.model.GetCommentsResponseData;
-import ru.levelp.at.homework6.model.PostAndPutCommentsRequestData;
+import ru.levelp.at.homework6.model.PostCommentsRequestData;
+import ru.levelp.at.homework6.model.PutCommentsRequestData;
 
 public class CommentsTest {
 
@@ -45,7 +46,7 @@ public class CommentsTest {
     @Test
     void getAllComments() {
 
-        GetAllCommentsResponseData response = commentsClient.requestGet()
+        GetAllCommentsResponseData response = commentsClient.getComments()
                                                             .then()
                                                             .statusCode(200)
                                                             .extract()
@@ -62,7 +63,7 @@ public class CommentsTest {
         var faker = new Faker();
         int id = faker.random().nextInt(100, 104);
 
-        GetCommentsResponseData response = commentsClient.requestGetId(id)
+        GetCommentsResponseData response = commentsClient.getComment(id)
                                                          .then()
                                                          .statusCode(200)
                                                          .extract()
@@ -78,7 +79,7 @@ public class CommentsTest {
     @ParameterizedTest
     @MethodSource("ru.levelp.at.homework6.comments.PositiveDataProvider#dataTest")
     void createComment(int postId, String name, String email, String body) {
-        var requestData = PostAndPutCommentsRequestData
+        var requestData = PostCommentsRequestData
             .builder()
             .postId(postId)
             .name(name)
@@ -86,7 +87,7 @@ public class CommentsTest {
             .body(body)
             .build();
 
-        GetCommentsResponseData response = commentsClient.requestPost(requestData)
+        GetCommentsResponseData response = commentsClient.createComment(requestData)
                                                     .then()
                                                     .statusCode(201)
                                                     .extract()
@@ -102,7 +103,7 @@ public class CommentsTest {
     @ParameterizedTest
     @MethodSource("ru.levelp.at.homework6.comments.PositiveDataProvider#dataTest")
     void changeComments(int postId, String name, String email, String body, int id) {
-        var requestData = PostAndPutCommentsRequestData
+        var requestData = PutCommentsRequestData
             .builder()
             .postId(postId)
             .name(name)
@@ -110,7 +111,7 @@ public class CommentsTest {
             .body(body)
             .build();
 
-        GetCommentsResponseData response = commentsClient.requestPutId(id, requestData)
+        GetCommentsResponseData response = commentsClient.changeComment(id, requestData)
                                                     .then()
                                                     .statusCode(200)
                                                     .extract()
@@ -126,7 +127,7 @@ public class CommentsTest {
     @ParameterizedTest
     @MethodSource("ru.levelp.at.homework6.comments.PositiveDataProvider#dataTest")
     void deleteComments(int postId, String name, String email, String body) {
-        var requestData = PostAndPutCommentsRequestData
+        var requestData = PostCommentsRequestData
             .builder()
             .postId(postId)
             .name(name)
@@ -134,14 +135,14 @@ public class CommentsTest {
             .body(body)
             .build();
 
-        GetCommentsResponseData responseId = commentsClient.requestPost(requestData)
+        GetCommentsResponseData responseId = commentsClient.createComment(requestData)
                                                          .then()
                                                          .statusCode(201)
                                                          .extract()
                                                          .as(GetCommentsResponseData.class);
         int id = responseId.getData().getId();
 
-        commentsClient.requestDeleteId(id)
+        commentsClient.deleteComment(id)
                    .then()
                    .statusCode(204);
     }
@@ -151,7 +152,7 @@ public class CommentsTest {
         var faker = new Faker();
         int id = faker.random().nextInt(10000, 12000);
 
-        GetCommentsResponseData response = commentsClient.requestGetId(id)
+        GetCommentsResponseData response = commentsClient.getComment(id)
                                                          .then()
                                                          .statusCode(404)
                                                          .extract()
@@ -165,7 +166,7 @@ public class CommentsTest {
 
     @Test
     void postIncorrectParams() {
-        var requestData = PostAndPutCommentsRequestData
+        var requestData = PostCommentsRequestData
             .builder()
             .postId(0)
             .name("")
@@ -173,7 +174,7 @@ public class CommentsTest {
             .body("")
             .build();
 
-        FailResponseData response = commentsClient.requestPost(requestData)
+        FailResponseData response = commentsClient.createComment(requestData)
                                                   .then()
                                                   .statusCode(422)
                                                   .extract()

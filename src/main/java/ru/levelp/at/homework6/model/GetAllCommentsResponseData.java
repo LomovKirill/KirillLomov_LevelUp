@@ -18,7 +18,7 @@ import lombok.ToString;
 public class GetAllCommentsResponseData {
 
     private MetaData meta;
-    private List<DataData> data;
+    private List<ArrayOfData> data;
 
     @Data
     @NoArgsConstructor
@@ -37,35 +37,7 @@ public class GetAllCommentsResponseData {
     @ToString
     @EqualsAndHashCode
     @Builder
-    public static class PaginationData {
-
-        private int total;
-        private int pages;
-        private int page;
-        private int limit;
-        private LinksData links;
-    }
-
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @ToString
-    @EqualsAndHashCode
-    @Builder
-    public static class LinksData {
-
-        private String previous;
-        private String current;
-        private String next;
-    }
-
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @ToString
-    @EqualsAndHashCode
-    @Builder
-    public static class DataData {
+    public static class ArrayOfData {
 
         private int id;
         @JsonProperty("post_id")

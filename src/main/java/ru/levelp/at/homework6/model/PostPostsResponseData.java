@@ -18,7 +18,7 @@ import ru.levelp.at.homework6.model.GetPostsResponseData.MetaData;
 public class PostPostsResponseData {
 
     private MetaData meta;
-    private DataData data;
+    private DataDO data;
 
     @Data
     @NoArgsConstructor
@@ -26,7 +26,7 @@ public class PostPostsResponseData {
     @ToString
     @EqualsAndHashCode
     @Builder
-    public static class DataData {
+    public static class DataDO {
 
         private int id;
         @JsonProperty("user_id")

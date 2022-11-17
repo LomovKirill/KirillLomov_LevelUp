@@ -18,7 +18,7 @@ import ru.levelp.at.homework6.model.GetUsersResponseData.MetaData;
 public class FailResponseData {
 
     private MetaData meta;
-    private List<DataData> data;
+    private List<ArrayOfData> data;
 
     @Data
     @NoArgsConstructor
@@ -26,7 +26,7 @@ public class FailResponseData {
     @ToString
     @EqualsAndHashCode
     @Builder
-    public static class DataData {
+    public static class ArrayOfData {
 
         private String field;
         private String message;

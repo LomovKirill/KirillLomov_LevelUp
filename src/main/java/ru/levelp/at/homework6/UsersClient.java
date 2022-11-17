@@ -4,7 +4,8 @@ import static io.restassured.RestAssured.given;
 
 import io.restassured.response.Response;
 import java.util.Map;
-import ru.levelp.at.homework6.model.PostAndPutUsersRequestData;
+import ru.levelp.at.homework6.model.PostUsersRequestData;
+import ru.levelp.at.homework6.model.PutUsersRequestData;
 
 public class UsersClient {
 
@@ -30,7 +31,7 @@ public class UsersClient {
             .thenReturn();
     }
 
-    public Response postUsers(PostAndPutUsersRequestData postUsersRequestData) {
+    public Response createUser(PostUsersRequestData postUsersRequestData) {
         return given()
             .header(AUTH, TOKEN)
             .body(postUsersRequestData)
@@ -39,7 +40,7 @@ public class UsersClient {
             .thenReturn();
     }
 
-    public Response getUsersId(int id, Map<String, Object> queryParams) {
+    public Response getUser(int id, Map<String, Object> queryParams) {
         return given()
             .queryParams(queryParams)
             .header(AUTH, TOKEN)
@@ -48,16 +49,16 @@ public class UsersClient {
             .thenReturn();
     }
 
-    public Response putUsersId(int id, PostAndPutUsersRequestData postUsersRequestData) {
+    public Response changeUser(int id, PutUsersRequestData putUsersRequestData) {
         return given()
             .header(AUTH, TOKEN)
-            .body(postUsersRequestData)
+            .body(putUsersRequestData)
             .when()
             .put(USERS_ID, id)
             .thenReturn();
     }
 
-    public Response deleteUsersId(int id) {
+    public Response deleteUser(int id) {
         return given()
             .header(AUTH, TOKEN)
             .when()

@@ -12,7 +12,7 @@ public class PostsClient {
     private static final String AUTH = "Authorization";
     private static final String TOKEN = "Bearer " + GetProperties.getProperty("token");
 
-    public Response requestGetPosts() {
+    public Response getPosts() {
         return given()
             .header(AUTH, TOKEN)
             .when()
@@ -20,7 +20,7 @@ public class PostsClient {
             .thenReturn();
     }
 
-    public Response requestPostPosts(PostPostsRequestData postUsersRequestData) {
+    public Response createPost(PostPostsRequestData postUsersRequestData) {
         return given()
             .header(AUTH, TOKEN)
             .body(postUsersRequestData)
@@ -29,7 +29,7 @@ public class PostsClient {
             .thenReturn();
     }
 
-    public Response requestGetPostsId(int id) {
+    public Response getPost(int id) {
         return given()
             .header(AUTH, TOKEN)
             .when()
@@ -37,7 +37,7 @@ public class PostsClient {
             .thenReturn();
     }
 
-    public Response requestPutPostsId(int id, PostPostsRequestData postUsersRequestData) {
+    public Response changePost(int id, PostPostsRequestData postUsersRequestData) {
         return given()
             .header(AUTH, TOKEN)
             .body(postUsersRequestData)
@@ -46,7 +46,7 @@ public class PostsClient {
             .thenReturn();
     }
 
-    public Response requestDeletePostsId(int id) {
+    public Response deletePost(int id) {
         return given()
             .header(AUTH, TOKEN)
             .when()

@@ -3,7 +3,8 @@ package ru.levelp.at.homework6;
 import static io.restassured.RestAssured.given;
 
 import io.restassured.response.Response;
-import ru.levelp.at.homework6.model.PostAndPutCommentsRequestData;
+import ru.levelp.at.homework6.model.PostCommentsRequestData;
+import ru.levelp.at.homework6.model.PutCommentsRequestData;
 
 public class CommentsClient {
 
@@ -12,7 +13,7 @@ public class CommentsClient {
     private static final String AUTH = "Authorization";
     private static final String TOKEN = "Bearer " + GetProperties.getProperty("token");
 
-    public Response requestGet() {
+    public Response getComments() {
         return given()
             .header(AUTH, TOKEN)
             .when()
@@ -20,7 +21,7 @@ public class CommentsClient {
             .thenReturn();
     }
 
-    public Response requestPost(PostAndPutCommentsRequestData requestData) {
+    public Response createComment(PostCommentsRequestData requestData) {
         return given()
             .header(AUTH, TOKEN)
             .body(requestData)
@@ -29,7 +30,7 @@ public class CommentsClient {
             .thenReturn();
     }
 
-    public Response requestGetId(int id) {
+    public Response getComment(int id) {
         return given()
             .header(AUTH, TOKEN)
             .when()
@@ -37,7 +38,7 @@ public class CommentsClient {
             .thenReturn();
     }
 
-    public Response requestPutId(int id, PostAndPutCommentsRequestData requestData) {
+    public Response changeComment(int id, PutCommentsRequestData requestData) {
         return given()
             .header(AUTH, TOKEN)
             .body(requestData)
@@ -46,7 +47,7 @@ public class CommentsClient {
             .thenReturn();
     }
 
-    public Response requestDeleteId(int id) {
+    public Response deleteComment(int id) {
         return given()
             .header(AUTH, TOKEN)
             .when()

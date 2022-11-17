@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.levelp.at.homework6.GetProperties;
 import ru.levelp.at.homework6.UsersClient;
 import ru.levelp.at.homework6.model.GetUsersResponseData;
-import ru.levelp.at.homework6.model.PostAndPutUsersRequestData;
+import ru.levelp.at.homework6.model.PostUsersRequestData;
 import ru.levelp.at.homework6.model.PostUsersResponseData;
+import ru.levelp.at.homework6.model.PutUsersRequestData;
 
 public class UsersPositiveTest {
 
@@ -61,7 +61,7 @@ public class UsersPositiveTest {
     @ParameterizedTest
     @MethodSource("ru.levelp.at.homework6.users.positive.data.provider.PostAndPutPositiveDataProvider#dataTest")
     void getUser(String name, String email, String gender, String status) {
-        var requestData = PostAndPutUsersRequestData
+        var requestData = PostUsersRequestData
             .builder()
             .email(email)
             .gender(gender)
@@ -69,7 +69,7 @@ public class UsersPositiveTest {
             .status(status)
             .build();
 
-        usersClient.postUsers(requestData)
+        usersClient.createUser(requestData)
                    .then()
                    .statusCode(201)
                    .extract()
@@ -95,7 +95,7 @@ public class UsersPositiveTest {
     @ParameterizedTest
     @MethodSource("ru.levelp.at.homework6.users.positive.data.provider.PostAndPutPositiveDataProvider#dataTest")
     void createUsers(String name, String email, String gender, String status) {
-        var requestData = PostAndPutUsersRequestData
+        var requestData = PostUsersRequestData
             .builder()
             .email(email)
             .gender(gender)
@@ -103,7 +103,7 @@ public class UsersPositiveTest {
             .status(status)
             .build();
 
-        PostUsersResponseData response = usersClient.postUsers(requestData)
+        PostUsersResponseData response = usersClient.createUser(requestData)
                                                     .then()
                                                     .statusCode(201)
                                                     .extract()
@@ -121,7 +121,7 @@ public class UsersPositiveTest {
     @ParameterizedTest
     @MethodSource("ru.levelp.at.homework6.users.positive.data.provider.PostAndPutPositiveDataProvider#dataTest")
     void getUserId(String name, String email, String gender, String status) {
-        var requestData = PostAndPutUsersRequestData
+        var requestData = PostUsersRequestData
             .builder()
             .email(email)
             .gender(gender)
@@ -129,7 +129,7 @@ public class UsersPositiveTest {
             .status(status)
             .build();
 
-        PostUsersResponseData responseId = usersClient.postUsers(requestData)
+        PostUsersResponseData responseId = usersClient.createUser(requestData)
                    .then()
                    .statusCode(201)
                    .extract()
@@ -138,7 +138,7 @@ public class UsersPositiveTest {
         int id = responseId.getData().getId();
 
         PostUsersResponseData response =
-            usersClient.getUsersId(id, Map.of("name", name, "email", email, "gender", gender, "status", status))
+            usersClient.getUser(id, Map.of("name", name, "email", email, "gender", gender, "status", status))
                        .then()
                        .statusCode(200)
                        .extract()
@@ -156,7 +156,7 @@ public class UsersPositiveTest {
     @ParameterizedTest
     @MethodSource("ru.levelp.at.homework6.users.positive.data.provider.PostAndPutPositiveDataProvider#dataTest")
     void changeUsers(String name, String email, String gender, String status) {
-        var requestData = PostAndPutUsersRequestData
+        var requestData = PostUsersRequestData
             .builder()
             .email(email)
             .gender(gender)
@@ -164,7 +164,7 @@ public class UsersPositiveTest {
             .status(status)
             .build();
 
-        PostUsersResponseData responseId = usersClient.postUsers(requestData)
+        PostUsersResponseData responseId = usersClient.createUser(requestData)
                                                       .then()
                                                       .statusCode(201)
                                                       .extract()
@@ -172,7 +172,7 @@ public class UsersPositiveTest {
         int id = responseId.getData().getId();
 
         var faker = new Faker();
-        var requestPutData = PostAndPutUsersRequestData
+        var requestPutData = PutUsersRequestData
             .builder()
             .email(faker.internet().emailAddress())
             .gender(gender)
@@ -180,7 +180,7 @@ public class UsersPositiveTest {
             .name(faker.name().fullName())
             .build();
 
-        PostUsersResponseData response = usersClient.putUsersId(id, requestPutData)
+        PostUsersResponseData response = usersClient.changeUser(id, requestPutData)
                                                     .then()
                                                     .statusCode(200)
                                                     .extract()
@@ -196,7 +196,7 @@ public class UsersPositiveTest {
     @ParameterizedTest
     @MethodSource("ru.levelp.at.homework6.users.positive.data.provider.DeletePositiveDataProvider#dataTest")
     void deleteUsers(String name, String email, String gender, String status) {
-        var requestData = PostAndPutUsersRequestData
+        var requestData = PostUsersRequestData
             .builder()
             .email(email)
             .gender(gender)
@@ -204,14 +204,14 @@ public class UsersPositiveTest {
             .status(status)
             .build();
 
-        PostUsersResponseData responseId = usersClient.postUsers(requestData)
+        PostUsersResponseData responseId = usersClient.createUser(requestData)
                                                       .then()
                                                       .statusCode(201)
                                                       .extract()
                                                       .as(PostUsersResponseData.class);
         int id = responseId.getData().getId();
 
-        usersClient.deleteUsersId(id)
+        usersClient.deleteUser(id)
                    .then()
                    .statusCode(204);
     }

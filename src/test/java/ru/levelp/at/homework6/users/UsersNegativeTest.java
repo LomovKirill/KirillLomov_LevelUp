@@ -15,8 +15,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 import ru.levelp.at.homework6.UsersClient;
 import ru.levelp.at.homework6.model.FailResponseData;
 import ru.levelp.at.homework6.model.GetUsersResponseData;
-import ru.levelp.at.homework6.model.PostAndPutUsersRequestData;
+import ru.levelp.at.homework6.model.PostUsersRequestData;
 import ru.levelp.at.homework6.model.PostUsersResponseData;
+import ru.levelp.at.homework6.model.PutUsersRequestData;
 
 public class UsersNegativeTest {
 
@@ -65,7 +66,7 @@ public class UsersNegativeTest {
     @MethodSource("ru.levelp.at.homework6.users.negative.data.provider.PostNegativeDataProvider#dataTest")
     void postIncorrectParams(String name, String email, String gender, String status, String field,
                              String message) {
-        var requestData = PostAndPutUsersRequestData
+        var requestData = PostUsersRequestData
             .builder()
             .email(email)
             .gender(gender)
@@ -74,7 +75,7 @@ public class UsersNegativeTest {
             .build();
 
         FailResponseData response =
-            usersClient.postUsers(requestData)
+            usersClient.createUser(requestData)
                        .then()
                        .statusCode(422)
                        .extract()
@@ -90,8 +91,24 @@ public class UsersNegativeTest {
     @ParameterizedTest
     @MethodSource("ru.levelp.at.homework6.users.negative.data.provider.PutNegativeDataProvider#dataTest")
     void putIncorrectParams(String name, String email, String gender, String status, String field,
-                            String message, int id) {
-        var requestData = PostAndPutUsersRequestData
+                            String message) {
+        var faker = new Faker();
+        var requestData = PostUsersRequestData
+            .builder()
+            .email(faker.internet().emailAddress())
+            .gender("male")
+            .name(faker.name().fullName())
+            .status("active")
+            .build();
+
+        PostUsersResponseData responseId = usersClient.createUser(requestData)
+                                                    .then()
+                                                    .extract()
+                                                    .as(PostUsersResponseData.class);
+
+        int id = responseId.getData().getId();
+
+        var requestPutData = PutUsersRequestData
             .builder()
             .email(email)
             .gender(gender)
@@ -100,7 +117,7 @@ public class UsersNegativeTest {
             .build();
 
         FailResponseData response =
-            usersClient.putUsersId(id, requestData)
+            usersClient.changeUser(id, requestPutData)
                        .then()
                        .statusCode(422)
                        .extract()
@@ -118,7 +135,7 @@ public class UsersNegativeTest {
         var faker = new Faker();
 
         PostUsersResponseData response =
-            usersClient.deleteUsersId(faker.number().numberBetween(100000, 111110))
+            usersClient.deleteUser(faker.number().numberBetween(100000, 111110))
                        .then()
                        .statusCode(404)
                        .extract()
