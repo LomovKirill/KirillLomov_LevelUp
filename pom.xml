@@ -21,8 +21,11 @@
         <javafaker.version>1.0.2</javafaker.version>
         <jackson-databind.version>2.13.3</jackson-databind.version>
         <checkstyle.version>10.3.3</checkstyle.version>
+        <selenium-java.version>4.4.0</selenium-java.version>
+        <webdrivermanager.version>5.3.0</webdrivermanager.version>
+        <javafaker.version>1.0.2</javafaker.version>
 
-        <maven-failsafe-plugin.version>3.0.0-M7</maven-failsafe-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0-M6</maven-failsafe-plugin.version>
         <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
 
         <suite.base.dir>${project.basedir}/src/test/java</suite.base.dir>
@@ -33,7 +36,7 @@
         <profile>
             <id>homework2-all-test</id>
             <properties>
-                <suite.name>**/AllTestSuite.java</suite.name>
+                <suite.name>**/homework2/AllTestSuite.java</suite.name>
             </properties>
         </profile>
 
@@ -43,14 +46,34 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <suite.name>**/NegativeSuite.java</suite.name>
+                <suite.name>**/homework2/NegativeSuite.java</suite.name>
             </properties>
         </profile>
 
         <profile>
             <id>homework2-positive-test</id>
             <properties>
-                <suite.name>**/PositiveSuite.java</suite.name>
+                <suite.name>**/homework2/PositiveSuite.java</suite.name>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>homework3-all-test</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <suite.name>**/homework3/AllTestSuite.java</suite.name>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>homework4-all-test</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <suite.name>**/homework4/AllTestSuite.java</suite.name>
             </properties>
         </profile>
 
@@ -104,6 +127,18 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+         </dependency>
+         
+         <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium-java.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
         </dependency>
 
         <dependency>
