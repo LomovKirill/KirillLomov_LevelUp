@@ -15,6 +15,11 @@
         <junit-jupiter.version>5.9.0</junit-jupiter.version>
         <junit-platform-suite.version>1.9.0</junit-platform-suite.version>
         <assertj-core.version>3.23.1</assertj-core.version>
+        <rest-assured.version>5.2.0</rest-assured.version>
+        <commons-io.version>2.11.0</commons-io.version>
+        <lombok.version>1.18.24</lombok.version>
+        <javafaker.version>1.0.2</javafaker.version>
+        <jackson-databind.version>2.13.3</jackson-databind.version>
         <checkstyle.version>10.3.3</checkstyle.version>
         <selenium-java.version>4.4.0</selenium-java.version>
         <webdrivermanager.version>5.3.0</webdrivermanager.version>
@@ -71,6 +76,16 @@
                 <suite.name>**/homework4/AllTestSuite.java</suite.name>
             </properties>
         </profile>
+
+        <profile>
+            <id>homework6-all-test</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <suite.name>**/homework6/AllApiTestSuite.java</suite.name>
+            </properties>
+        </profile>
     </profiles>
 
     <dependencies>
@@ -96,6 +111,25 @@
         </dependency>
 
         <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+         </dependency>
+         
+         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium-java.version}</version>
@@ -111,6 +145,12 @@
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>${javafaker.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
         </dependency>
     </dependencies>
 
