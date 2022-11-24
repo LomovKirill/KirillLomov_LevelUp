@@ -1,5 +1,6 @@
-package ru.levelp.at.homework4;
+package ru.levelp.at.homework7;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,22 +20,26 @@ public class OpenFolderEmailAction extends BasePage<OpenFolderEmailAction> {
     @FindBy(xpath = "//a[@data-folder-link-id='1']")
     private WebElement openYourselfFolder;
 
-    public OpenFolderEmailAction(WebDriver driver) {
+    protected OpenFolderEmailAction(WebDriver driver) {
         super(driver);
     }
 
+    @Step("Открытие папки \"Черновик\"")
     public void openDraft() {
         wait.until(ExpectedConditions.elementToBeClickable(openDraft)).click();
     }
 
+    @Step("Открытие папки \"Отправленные\"")
     public void openSent() {
         wait.until(ExpectedConditions.elementToBeClickable(openSent)).click();
     }
 
+    @Step("Открытие папки \"Корзина\"")
     public void openBasket() {
         wait.until(ExpectedConditions.elementToBeClickable(openBasket)).click();
     }
 
+    @Step("Открытие созданной папки")
     public void openYourselfFolder() {
         wait.until(ExpectedConditions.elementToBeClickable(openYourselfFolder)).click();
     }
