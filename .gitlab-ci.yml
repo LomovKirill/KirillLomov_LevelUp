@@ -22,7 +22,5 @@ allure_report:
     artifacts:
         paths:
             - target/site
-    dependencies:
-        - release
     rules:
         -   if: $CI_COMMIT_BRANCH == 'master'
