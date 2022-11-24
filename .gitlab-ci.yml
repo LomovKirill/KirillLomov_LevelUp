@@ -1,0 +1,28 @@
+image: maven:3.8.6-eclipse-temurin-11
+
+stages:
+    - build
+    - report
+
+build:
+    stage: build
+    script:
+        - mvn verify -P homework7-all-test
+    artifacts:
+        paths:
+            - target/*.jar
+    rules:
+        -   if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+
+
+allure_report:
+    stage: report
+    script:
+        - mvn allure:report
+    artifacts:
+        paths:
+            - target/site
+    dependencies:
+        - release
+    rules:
+        -   if: $CI_COMMIT_BRANCH == 'master'
